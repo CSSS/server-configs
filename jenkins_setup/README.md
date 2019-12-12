@@ -1,5 +1,12 @@
 # steps for setting up the CSSS jenkins
 
+## useful links
+
+1. https://wiki.jenkins.io/display/JENKINS/Jenkins+behind+an+NGinX+reverse+proxy
+1. https://github.com/hughperkins/howto-jenkins-ssl/blob/master/letsencrypt.md
+1. https://github.com/jenkinsci/docker/blob/master/README.md
+
+
 ```shell
 
 # setup jenkins
