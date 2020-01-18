@@ -7,29 +7,6 @@
 1. https://github.com/jenkinsci/docker/blob/master/README.md
 
 
-```shell
-
-# setup jenkins
-docker run \
-    -d \
-    -v \
-    /var/run/docker.sock:/var/run/docker.sock \
-    -v $(which docker):/bin/docker \
-    -v $(which docker-compose):/bin/docker-compose \
-    -e VIRTUAL_HOST=jenkins.sfucsss.org \
-    -p 8080:8080 \
-    --name csss_jenkins \
-    sfucsssorg/csss_jenkins
-
-
-# copy nginx_configs/jenkins to /etc/nginx/sites-available/jenkins
-sudo ln -s /etc/nginx/sites-available/jenkins /etc/nginx/sites-enabled/
-sudo nginx -t
-sudo systemctl restart nginx
-
-# verify chain cert with https://whatsmychaincert.com/?jenkins.sfucsss.org
-```
-
 ## Create job to build wall_e
 ![Step 1](jenkins_build_wall-e_1.jpg)
 
