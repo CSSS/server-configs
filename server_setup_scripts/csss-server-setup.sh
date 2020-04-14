@@ -107,3 +107,6 @@ passbolt register_user \
 sudo ln -s /etc/nginx/sites-available/passwords /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl restart nginx
+
+sudo apt-get install postgresql-client
+sudo apt install postgresql-client-common
