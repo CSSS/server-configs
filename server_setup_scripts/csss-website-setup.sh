@@ -28,19 +28,16 @@ python3.8 -m virtualenv envCSSS
 cd csss-site
 mkdir -p /home/csss/csss-site/csss-site/src/logs
 python3.8 -m pip install -r requirements.txt
-echo "
-[Unit]
+echo "[Unit]
 Description=gunicorn socket
 
 [Socket]
 ListenStream=/run/gunicorn.sock
 
 [Install]
-WantedBy=sockets.target
-" | sudo tee /etc/systemd/system/gunicorn.socket
+WantedBy=sockets.target " | sudo tee /etc/systemd/system/gunicorn.socket
 
-echo "
-[Unit]
+echo "[Unit]
 Description=gunicorn daemon
 Requires=gunicorn.socket
 After=network.target
@@ -57,8 +54,7 @@ ExecStart=/home/csss/envCSSS/bin/gunicorn \\
           csss.wsgi:application
 
 [Install]
-WantedBy=multi-user.target
-" | sudo tee /etc/systemd/system/gunicorn.service
+WantedBy=multi-user.target" | sudo tee /etc/systemd/system/gunicorn.service
 
 sudo systemctl start gunicorn.socket
 sudo systemctl enable gunicorn.socket
@@ -85,19 +81,18 @@ sudo systemctl restart gunicorn
 sudo apt-get update
 sudo apt-get install -y nginx
 
-echo "
-server {
+echo "server {
   listen 80;
-  server_name ${the_website_url};
+  server_name ${website_fqdn};
   return 301 https://\$host\$request_uri;
 }
 
 server {
         listen 443 ssl;
-        server_name ${the_website_url};
+        server_name ${website_fqdn};
 
-        ssl_certificate /etc/letsencrypt/live/${the_website_url}/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/${the_website_url}/privkey.pem;
+        ssl_certificate /etc/letsencrypt/live/${website_fqdn}/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/${website_fqdn}/privkey.pem;
 
         location = /favicon.ico { access_log off; log_not_found off; }
         location /STATIC_URL/ {
@@ -114,9 +109,7 @@ server {
                 include proxy_params;
                 proxy_pass http://unix:/run/gunicorn.sock;
         }
-}
-
-" | sudo tee /etc/nginx/sites-available/website
+} " | sudo tee /etc/nginx/sites-available/website
 sudo ln -s /etc/nginx/sites-available/website /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl restart nginx
