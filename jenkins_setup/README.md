@@ -51,3 +51,7 @@ Payload URL: `https://jenkins.sfucsss.org/job/wall-e-clean-branch/buildWithParam
 ![Step 1](github_wall-e-clean-pr.jpg)
 
 Payload URL: `https://jenkins.sfucsss.org/job/wall-e-clean-pr/buildWithParameters?token=<token>`
+
+### disable csrf
+
+https://unix.stackexchange.com/a/582764/328370
